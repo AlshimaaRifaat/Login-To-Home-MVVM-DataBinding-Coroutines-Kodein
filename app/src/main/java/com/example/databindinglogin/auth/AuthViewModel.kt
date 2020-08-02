@@ -3,7 +3,9 @@ package com.example.databindinglogin.auth
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.databindinglogin.data.repositories.UserRespository
+import com.example.databindinglogin.util.ApiException
 import com.example.databindinglogin.util.Coroutines
+import java.lang.Exception
 
 class AuthViewModel : ViewModel() {
      var email:String?=null
@@ -20,12 +22,18 @@ class AuthViewModel : ViewModel() {
         }
 
         Coroutines.main{
-            val response=UserRespository().userLogin(email!!,password!!)
-            if(response.isSuccessful){
-                authListener?.onSuccess(response.body()?.user!!)
-            }else{
-                authListener?.onFailure("Error Code: ${response.code()}")
-            }
+
+           try {
+               val authResponse=UserRespository().userLogin(email!!,password!!)
+               authResponse.user.let {
+                   authListener?.onSuccess(it)
+                   return@main
+               }
+               authListener?.onFailure(authResponse.message)
+           }catch (e:ApiException)
+           {
+               authListener?.onFailure(e.message!!)
+           }
         }
 
 
