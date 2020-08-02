@@ -13,10 +13,10 @@ import retrofit2.http.POST
 interface MyApi {
     @FormUrlEncoded
     @POST("login")
-     fun userLogin(
+    suspend fun userLogin(
         @Field("email") email: String,
         @Field("password") password: String
-    ) : Call<AuthResponse>
+    ) : Response<AuthResponse>
 
     companion object{
         operator fun invoke(): MyApi{

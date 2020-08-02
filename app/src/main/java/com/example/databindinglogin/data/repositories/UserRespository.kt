@@ -12,27 +12,9 @@ import retrofit2.Response
 
 
 class UserRespository  {
-    fun userLogin(email:String,password:String):LiveData<String>
+    suspend fun userLogin(email:String,password:String):Response<AuthResponse>
     {
-        val loginResonse=MutableLiveData<String>()
-        MyApi().userLogin(email,password).enqueue(object : Callback<AuthResponse> {
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-          loginResonse.value=t.message
-            }
 
-            override fun onResponse(
-                call: Call<AuthResponse>,
-                response: Response<AuthResponse>
-            ) {
-                if(response.isSuccessful) {
-                    loginResonse.value = response.body()?.message
-                }else{
-                    loginResonse.value=response.errorBody()?.string()
-                }
-            }
-
-
-        })
-        return loginResonse
+        return  MyApi().userLogin(email,password)
         }
 }

@@ -1,9 +1,9 @@
 package com.example.databindinglogin.auth
 
-import androidx.lifecycle.LiveData
+import com.example.databindinglogin.data.network.model.AuthResponse
 
 interface AuthListener {
     fun onStarted()
-    fun onSuccess(loginResponse: LiveData<String>)
+    fun onSuccess(user: AuthResponse.User)
     fun onFailure(message:String)
 }

@@ -3,10 +3,10 @@ package com.example.databindinglogin.auth
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.databindinglogin.R
+import com.example.databindinglogin.data.network.model.AuthResponse
 import com.example.databindinglogin.databinding.ActivityMainBinding
 import com.example.databindinglogin.util.hide
 import com.example.databindinglogin.util.show
@@ -28,11 +28,9 @@ class MainActivity : AppCompatActivity(),AuthListener {
       progress_bar.show()
     }
 
-    override fun onSuccess(loginResponse: LiveData<String>) {
+    override fun onSuccess(user: AuthResponse.User) {
         progress_bar.hide()
-        loginResponse.observe(this, Observer {
-            toast(it)
-        })
+        toast("${user.name} is Logged In")
     }
 
     override fun onFailure(message: String) {
