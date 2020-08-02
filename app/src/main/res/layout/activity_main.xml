@@ -77,7 +77,7 @@
                     android:background="@drawable/edit_text_round_gray_background"
                     android:drawableLeft="@drawable/ic_email"
                     android:drawablePadding="16dp"
-                    android:hint="belal@gmail.com"
+                    android:hint="shimaa@gmail.com"
                     android:inputType="textEmailAddress"
                     android:padding="12dp" />
 
