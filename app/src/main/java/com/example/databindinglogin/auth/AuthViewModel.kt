@@ -2,12 +2,12 @@ package com.example.databindinglogin.auth
 
 import android.view.View
 import androidx.lifecycle.ViewModel
-import com.example.databindinglogin.data.repositories.UserRespository
+import com.example.databindinglogin.data.repositories.UserRepository
 import com.example.databindinglogin.util.ApiException
 import com.example.databindinglogin.util.Coroutines
-import java.lang.Exception
+import com.example.databindinglogin.util.NoInternetException
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel(private val userRespository: UserRepository) : ViewModel() {
      var email:String?=null
     var password:String?=null
   var authListener:AuthListener?=null
@@ -24,13 +24,16 @@ class AuthViewModel : ViewModel() {
         Coroutines.main{
 
            try {
-               val authResponse=UserRespository().userLogin(email!!,password!!)
+               val authResponse=userRespository.userLogin(email!!,password!!)
                authResponse.user.let {
                    authListener?.onSuccess(it)
                    return@main
                }
                authListener?.onFailure(authResponse.message)
            }catch (e:ApiException)
+           {
+               authListener?.onFailure(e.message!!)
+           }catch (e:NoInternetException)
            {
                authListener?.onFailure(e.message!!)
            }
