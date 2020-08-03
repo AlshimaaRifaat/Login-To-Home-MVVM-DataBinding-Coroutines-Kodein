@@ -1,4 +1,4 @@
-package com.example.databindinglogin.auth
+package com.example.databindinglogin.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,7 +15,7 @@ import com.example.databindinglogin.util.show
 import com.example.databindinglogin.util.snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(),AuthListener {
+class LoginActivity : AppCompatActivity(),AuthListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: AuthViewModel
     override fun onCreate(savedInstanceState: Bundle?) {

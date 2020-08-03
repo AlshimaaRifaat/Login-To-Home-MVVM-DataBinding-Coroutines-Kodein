@@ -1,4 +1,4 @@
-package com.example.databindinglogin.auth
+package com.example.databindinglogin.ui.auth
 
 import com.example.databindinglogin.data.network.model.AuthResponse
 

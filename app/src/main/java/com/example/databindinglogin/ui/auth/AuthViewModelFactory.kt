@@ -1,4 +1,4 @@
-package com.example.databindinglogin.auth
+package com.example.databindinglogin.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
