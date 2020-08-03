@@ -13,7 +13,7 @@ data class AuthResponse(
 ) {
     data class User(
         @SerializedName("created_at")
-        var createdAt: String,
+        var createdAt: String?,
         @SerializedName("email")
         var email: String,
         @SerializedName("email_verified_at")
@@ -23,6 +23,6 @@ data class AuthResponse(
         @SerializedName("name")
         var name: String,
         @SerializedName("updated_at")
-        var updatedAt: String
+        var updatedAt: String?
     )
 }

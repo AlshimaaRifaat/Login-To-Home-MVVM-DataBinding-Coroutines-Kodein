@@ -22,6 +22,7 @@ class NetworkConnectionInterceptor(
         return chain.proceed(chain.request())
     }
 
+
     @RequiresApi(Build.VERSION_CODES.M)
     private fun isInternetAvailable(): Boolean {
 

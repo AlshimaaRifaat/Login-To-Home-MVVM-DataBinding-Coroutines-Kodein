@@ -13,7 +13,7 @@ data class QuotesResponse(
         @SerializedName("author")
         var author: String,
         @SerializedName("created_at")
-        var createdAt: Any,
+        var createdAt: String?,
         @SerializedName("id")
         var id: Int,
         @SerializedName("quote")
@@ -21,6 +21,6 @@ data class QuotesResponse(
         @SerializedName("thumbnail")
         var thumbnail: String,
         @SerializedName("updated_at")
-        var updatedAt: Any
+        var updatedAt: String?
     )
 }

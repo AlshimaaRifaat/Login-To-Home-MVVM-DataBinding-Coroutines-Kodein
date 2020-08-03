@@ -1,16 +1,15 @@
 package com.example.databindinglogin.ui.auth
 
-import android.content.Intent
-import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.databindinglogin.data.repositories.UserRepository
-import com.example.databindinglogin.ui.home.HomeActivity
-import com.example.databindinglogin.util.ApiException
-import com.example.databindinglogin.util.Coroutines
-import com.example.databindinglogin.util.NoInternetException
 
 class AuthViewModel(private val userRespository: UserRepository) : ViewModel() {
-     var email:String?=null
+
+    suspend fun userLogin(
+        email:String,
+        password:String
+    ) = userRespository.userLogin(email,password)
+   /*  var email:String?=null
     var password:String?=null
   var authListener:AuthListener?=null
 
@@ -45,5 +44,5 @@ class AuthViewModel(private val userRespository: UserRepository) : ViewModel() {
           Intent(view.context,HomeActivity::class.java).also {
               view.context.startActivity(it)
           }
-    }
+    }*/
 }
