@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
 import com.example.databindinglogin.ui.home.Quotes.QuotesFragment
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(),AuthListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: AuthViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         val factory=AuthViewModelFactory(userRepository)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this,factory).get(AuthViewModel::class.java)
-
+        viewModel.authListener=this
         binding.buttonSignIn.setOnClickListener {
             loginUser()
         }
@@ -42,14 +42,18 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val authResponse = viewModel.userLogin(email, password)
                 if(authResponse.isSuccessful) {
+                    onSuccess(authResponse.user)
                     binding.rootLayout.snackbar(authResponse.message)
                     replaceFragment(QuotesFragment())
                 }
 
             } catch (e: ApiException) {
                 e.printStackTrace()
+               onFailure(e.message.toString())
+
             } catch (e: NoInternetException) {
                 e.printStackTrace()
+                onFailure(e.message.toString())
             }
         }
     }
@@ -61,6 +65,21 @@ class LoginActivity : AppCompatActivity() {
                 fragment
             )
             ?.commitNow()
+    }
+
+    override fun onStarted() {
+        progress_bar.show()
+    }
+
+    override fun onSuccess(user: AuthResponse.User) {
+        progress_bar.hide()
+        root_layout.snackbar("${user.name} is Logged In")
+    }
+
+    override fun onFailure(message: String) {
+        progress_bar.hide()
+        root_layout.snackbar(message)
+
     }
 
 
