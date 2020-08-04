@@ -3,11 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-  <!--  <data>
-       <variable
-           name="viewmodel"
-           type="com.example.databindinglogin.ui.auth.AuthViewModel" />
-    </data>-->
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/root_layout"
