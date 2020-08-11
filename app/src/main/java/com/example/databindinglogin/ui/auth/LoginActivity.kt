@@ -1,5 +1,6 @@
 package com.example.databindinglogin.ui.auth
 
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -12,20 +13,27 @@ import com.example.databindinglogin.data.network.model.AuthResponse
 import com.example.databindinglogin.data.repositories.UserRepository
 import com.example.databindinglogin.databinding.ActivityMainBinding
 import com.example.databindinglogin.util.*
-import kotlinx.android.synthetic.main.activity_main.*
+
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
 import com.example.databindinglogin.ui.home.Quotes.QuotesFragment
+import kotlinx.android.synthetic.main.activity_main.*
+import org.kodein.di.generic.instance
+import org.kodein.di.android.kodein
+import org.kodein.di.KodeinAware
 
-class LoginActivity : AppCompatActivity(),AuthListener {
+class LoginActivity : AppCompatActivity(),AuthListener,KodeinAware {
+    override val kodein by kodein()
+    private val factory:AuthViewModelFactory by instance()
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: AuthViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val networkConnectionInterceptor=NetworkConnectionInterceptor(this)
+        /*val networkConnectionInterceptor=NetworkConnectionInterceptor(this)
         val myApi=MyApi(networkConnectionInterceptor)
         val userRepository=UserRepository(myApi)
-        val factory=AuthViewModelFactory(userRepository)
+        val factory=AuthViewModelFactory(userRepository)*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this,factory).get(AuthViewModel::class.java)
         viewModel.authListener=this

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.databindinglogin.R
@@ -24,11 +24,17 @@ import com.example.databindinglogin.util.toast
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_quotes.*
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
+import org.kodein.di.KodeinAware
 
 /**
  * A simple [Fragment] subclass.
  */
-class QuotesFragment : Fragment() {
+class QuotesFragment : Fragment(),KodeinAware {
+    override val kodein by kodein()
+    private val factory:QuotesViewModelFactory by instance()
+
     private lateinit var viewModel: QuotesViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +46,11 @@ class QuotesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val networkConnectionInterceptor= NetworkConnectionInterceptor(requireContext())
+     /*   val networkConnectionInterceptor= NetworkConnectionInterceptor(requireContext())
         val myApi= MyApi(networkConnectionInterceptor)
         val userRepository= QuotesRepository(myApi)
-        val factory= QuotesViewModelFactory(userRepository)
-        viewModel = ViewModelProviders.of(this, factory).get(QuotesViewModel::class.java)
+        val factory= QuotesViewModelFactory(userRepository)*/
+        viewModel = ViewModelProvider(this, factory).get(QuotesViewModel::class.java)
         bindUI()
     }
 
